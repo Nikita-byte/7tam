@@ -3,5 +3,10 @@
     StartGame,
     MainMenu,
     EndGame,
-    PlantBomb
+    PlantBomb,
+
+    Up,
+    Down,
+    Left,
+    Right
 }

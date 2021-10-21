@@ -10,6 +10,11 @@ public class GamePanel : BasePanel
     [SerializeField] private Button _bomb;
     [SerializeField] private Image _bombImage;
 
+    [SerializeField] private Button _up;
+    [SerializeField] private Button _down;
+    [SerializeField] private Button _left;
+    [SerializeField] private Button _right;
+
     private float _cooldown = 1;
     private float _currentTime = 0;
     private bool _bombIsPlanted = false;
@@ -36,6 +41,11 @@ public class GamePanel : BasePanel
     {
         _mainMenu.onClick.AddListener(() => EventManager.Instance.Events[EventType.MainMenu].Invoke());
         _bomb.onClick.AddListener(() => PlantBomb());
+
+        _up.onClick.AddListener(() => EventManager.Instance.Events[EventType.Up].Invoke());
+        _down.onClick.AddListener(() => EventManager.Instance.Events[EventType.Down].Invoke());
+        _left.onClick.AddListener(() => EventManager.Instance.Events[EventType.Left].Invoke());
+        _right.onClick.AddListener(() => EventManager.Instance.Events[EventType.Right].Invoke());
     }
 
     public override void Hide()
