@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 
 public class Table : MonoBehaviour
@@ -11,36 +12,40 @@ public class Table : MonoBehaviour
     private float _Xstep = 1.104f;
     private float _Ystep = -1.005f;
     private Cell[,] _cells;
+    private List<GameObject> _objectsOnTable;
+    private Dictionary<Vector2, GameObject> _bombs;
 
-    
-    //private Vector2[,] _positions = new Vector2[9, 17];
+    public int MaxXCells => _maxXcells;
+    public int MaxYCells => _maxYcells;
 
 
     public void InitializeTable()
     {
         _cells = new Cell[_maxYcells, _maxXcells];
         Vector2 tempPosition = _firstPoint;
+        _objectsOnTable = new List<GameObject>();
+        _bombs = new Dictionary<Vector2, GameObject>();
 
         for (int i = 0; i < _maxYcells; i++)
         {
             for (int k = 0; k < _maxXcells; k++)
             {
                 _cells[i, k] = new Cell(tempPosition + new Vector2(_Xstep * k, _Ystep * i));
-
-                if ((i % 2 != 0 ) && (k % 2 != 0)) 
-                {
-                    SetCellType(new Vector2(i, k), CellType.Stone);
-                }
             }
 
             tempPosition += _step;
         }
+    }
 
-        //foreach (Vector2 vector2 in _positions)
-        //{
-        //    GameObject go = new GameObject();
-        //    go.transform.position = vector2;
-        //}
+    public void TurnOff()
+    {
+        foreach (GameObject go in _objectsOnTable)
+        {
+            ObjectPool.Instance.ReturnInPool(ObjectType.Stone, gameObject);
+        }
+
+        _objectsOnTable.Clear();
+        _bombs.Clear();
     }
 
     public bool CheckCell(Vector2 position)
@@ -55,6 +60,11 @@ public class Table : MonoBehaviour
         return true;
     }
 
+    public CellType CheckItemCell(Vector2 position)
+    {
+        return _cells[(int)position.y, (int)position.x].CellType;
+    }
+
     public Vector2 GetPosition(Vector2 cellPosition)
     {
         return _cells[(int)cellPosition.y, (int)cellPosition.x].Cellposition;
@@ -67,15 +77,35 @@ public class Table : MonoBehaviour
         {
             case CellType.Stone:
                 go = ObjectPool.Instance.GetObject(ObjectType.Stone);
+                _objectsOnTable.Add(go);
                 go.SetActive(true);
                 go.transform.position = _cells[(int)position.y, (int)position.x].Cellposition;
                 break;
             case CellType.Bomb:
+                go = ObjectPool.Instance.GetObject(ObjectType.Bomb);
+                go.SetActive(true);
+                _bombs.Add(position, go);
+                go.transform.position = _cells[(int)position.y, (int)position.x].Cellposition;
                 break;
         }
 
         _cells[(int)position.y, (int)position.x].CellType = cellType;
-        //_cells[(int)position.y, (int)position.x].CellType = cellType;
-        //return _cells[(int)position.x, (int)position.y].Cellposition;
+    }
+
+    public void RemoveCellType(Vector2 position)
+    {
+        GameObject go;
+        switch (_cells[(int)position.y, (int)position.x].CellType)
+        {
+            case CellType.Stone:
+                break;
+            case CellType.Bomb:
+                go = _bombs[position];
+                ObjectPool.Instance.ReturnInPool(ObjectType.Bomb, go);
+                _bombs.Remove(position);
+                break;
+        }
+
+        _cells[(int)position.y, (int)position.x].CellType = CellType.None;
     }
 }

@@ -18,5 +18,6 @@
     Farmer,
     Pig,
     Stone,
-    Table
+    Table,
+    Explosion
 }

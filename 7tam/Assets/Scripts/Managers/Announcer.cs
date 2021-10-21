@@ -22,6 +22,7 @@ public class Announcer
         }
 
         GameObject go = ObjectPool.Instance.GetObject(ObjectType.Text);
+        go.SetActive(true);
         go.transform.SetParent(_canvas.transform);
 
         go.GetComponent<ScriptOnText>().SetText(text, _camera.WorldToScreenPoint(position));

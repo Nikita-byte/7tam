@@ -33,7 +33,6 @@ public class SoundManager
             _sounds.Add(gameobject.name, go);
         }
 
-        //_audioListener = ObjectPool.Instance.GetObject(ObjectType.Camera).GetComponent<AudioListener>();
     }
 
     public void PlaySound(SoundType soundType)
@@ -42,6 +41,9 @@ public class SoundManager
         {
             case SoundType.Music:
                 Sounds["Music"].GetComponent<AudioSource>().Play();
+                break;
+            case SoundType.Boom:
+                Sounds["Boom"].GetComponent<AudioSource>().Play();
                 break;
         }
 
@@ -65,20 +67,4 @@ public class SoundManager
             source.volume = volume;
         }
     }
-
-    //public void TurnOn()
-    //{
-    //    float volume = PlayerPrefs.GetInt("Record", 0);
-
-    //    //_audioListener.enabled = true;
-    //}
-
-    //public void TurnOff(float volume)
-    //{
-    //    PlayerPrefs.SetFloat("Volume", volume);
-
-    //    SetVolume(0);
-
-    //    //_audioListener.enabled = false;
-    //}
 }

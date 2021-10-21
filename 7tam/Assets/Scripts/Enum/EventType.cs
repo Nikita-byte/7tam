@@ -3,5 +3,5 @@
     StartGame,
     MainMenu,
     EndGame,
-    StartWheel
+    PlantBomb
 }

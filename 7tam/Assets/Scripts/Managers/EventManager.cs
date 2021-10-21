@@ -10,7 +10,6 @@ public class EventManager
 
     public Action ShakeCamera = delegate { };
 
-    //public Action<ElementType> LVLEvent = delegate { };
     public Action<int> ScoreEvent = delegate { };
     public Action<int> ScoreWheelEvent = delegate { };
 
@@ -37,7 +36,7 @@ public class EventManager
     {
         if (_events.TryGetValue(eventType, out Action value))
         {
-            value -= action;
+            _events[eventType] -= action;
         }
     }
 }

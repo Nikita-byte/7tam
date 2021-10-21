@@ -25,7 +25,11 @@ public class SettingsPanel : BasePanel
         SetVolume();
         SoundOn();
         VibroOn();
-        
+
+        Sequence sq = DOTween.Sequence();
+        sq.Append(GetComponent<Image>().DOColor(Color.green, 3)).
+            Append(GetComponent<Image>().DOColor(Color.blue, 3)).
+            Append(GetComponent<Image>().DOColor(Color.white, 3)).SetLoops(-1).SetEase(Ease.Linear);
     }
 
     public override void Hide()

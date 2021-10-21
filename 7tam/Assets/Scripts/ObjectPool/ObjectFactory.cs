@@ -5,13 +5,10 @@ using System.Collections.Generic;
 public class ObjectFactory
 {
     private Dictionary<string, Sprite> _sprites;
-    //private Dictionary<string, GameObject> _sounds;
 
     public ObjectFactory()
     {
-        //GameObject sound = new GameObject("Sound");
         _sprites = new Dictionary<string, Sprite>();
-        //_sounds = new Dictionary<string, GameObject>();
         Sprite[] sprites = Resources.LoadAll<Sprite>(AssetsPath.Path[ObjectType.Sprites]);
         GameObject[] gameobjects = Resources.LoadAll<GameObject>(AssetsPath.Path[ObjectType.Sound]);
 
@@ -19,13 +16,6 @@ public class ObjectFactory
         {
             _sprites.Add(sprite.name, sprite);
         }
-
-        //foreach (GameObject gameobject in gameobjects)
-        //{
-        //    GameObject go = GameObject.Instantiate(gameobject);
-        //    go.transform.SetParent(sound.transform);
-        //    _sounds.Add(gameobject.name, go);
-        //}
     }
 
     public Dictionary<string, Sprite> Sprites 
@@ -35,14 +25,6 @@ public class ObjectFactory
             return _sprites;
         }
     }
-
-    //public Dictionary<string, GameObject> Sounds
-    //{
-    //    get
-    //    {
-    //        return _sounds;
-    //    }
-    //}
 
     public GameObject Camera
     {
@@ -88,6 +70,51 @@ public class ObjectFactory
         {
             GameObject stone = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Stone]));
             return stone;
+        }
+    }
+
+    public GameObject Explosion
+    {
+        get
+        {
+            GameObject explosion = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Explosion]));
+            return explosion;
+        }
+    }
+
+    public GameObject Bomb
+    {
+        get
+        {
+            GameObject bomb = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Bomb]));
+            return bomb;
+        }
+    }
+
+    public GameObject Dog
+    {
+        get
+        {
+            GameObject dog = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Dog]));
+            return dog;
+        }
+    }
+
+    public GameObject Farmer
+    {
+        get
+        {
+            GameObject farmer = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Farmer]));
+            return farmer;
+        }
+    }
+
+    public GameObject Text
+    {
+        get
+        {
+            GameObject text = GameObject.Instantiate(Resources.Load<GameObject>(AssetsPath.Path[ObjectType.Text]));
+            return text;
         }
     }
 }

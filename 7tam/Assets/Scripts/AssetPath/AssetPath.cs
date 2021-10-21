@@ -33,6 +33,9 @@ public sealed class AssetsPath
                 ObjectType.Table, "Table"
             },
             {
+                ObjectType.Text, "Text"
+            },
+            {
                 ObjectType.Sound, "Sound"
             },
             {
@@ -41,6 +44,17 @@ public sealed class AssetsPath
             {
                 ObjectType.Stone, "stone"
             },
-
+            {
+                ObjectType.Explosion, "Explosion"
+            },
+            {
+                ObjectType.Bomb, "bomb"
+            },
+            {
+                ObjectType.Dog, "Dog"
+            },
+            {
+                ObjectType.Farmer, "Farmer"
+            },
         };
 }

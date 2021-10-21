@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 
 public class PlayerController : ITurnOn, IUpdate
@@ -12,11 +13,15 @@ public class PlayerController : ITurnOn, IUpdate
         _pig = ObjectPool.Instance.GetObject(ObjectType.Pig).GetComponent<BaseCharacter>();
         _table = ObjectPool.Instance.GetObject(ObjectType.Table).GetComponent<Table>();
 
-        _pig.SetPosition(_startPosition);
+        _pig.SetPosition(_startPosition); 
+        _pig.gameObject.SetActive(true);
+
+        EventManager.Instance.AddListener(EventType.PlantBomb, PlantBomb);
     }
 
     public void TurnOff()
     {
+        EventManager.Instance.RemoveListener(EventType.PlantBomb, PlantBomb);
     }
 
     public void Update()
@@ -58,5 +63,17 @@ public class PlayerController : ITurnOn, IUpdate
 
     public void LateUpdate()
     {
+    }
+
+    private void PlantBomb()
+    {
+        Debug.Log("Bomb");
+
+        if (!_pig.IsMoving)
+        {
+            Vector2 plantPosition = _pig.CellPosition;
+
+            _table.SetCellType(plantPosition, CellType.Bomb);
+        }
     }
 }

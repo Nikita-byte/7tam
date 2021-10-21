@@ -17,8 +17,10 @@ public class GameState : BaseState
 
         _controllers.Add(new SceneCreator());
         _controllers.Add(new PlayerController());
+        _controllers.Add(new EnemyController());
 
         _updateControllers.Add(_controllers[1] as IUpdate);
+        _updateControllers.Add(_controllers[2] as IUpdate);
     }
 
     public override void Enter()

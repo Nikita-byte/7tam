@@ -13,6 +13,11 @@ public class MainMenu : BasePanel
     {
         _play.onClick.AddListener(()=> EventManager.Instance.Events[EventType.StartGame].Invoke());
         _settings.onClick.AddListener(() => ScreenInterface.Instance.Execute(PanelType.Settings));
+
+        Sequence sq = DOTween.Sequence();
+        sq.Append(GetComponent<Image>().DOColor(Color.green, 3)).
+            Append(GetComponent<Image>().DOColor(Color.blue, 3)).
+            Append(GetComponent<Image>().DOColor(Color.white, 3)).SetLoops(-1).SetEase(Ease.Linear);
     }
 
     public override void Hide()
